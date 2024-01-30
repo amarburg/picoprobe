@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2021 Raspberry Pi (Trading) Ltd.
+ * Copyright (c) 2023 Raspberry Pi (Trading) Ltd.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,62 +23,30 @@
  *
  */
 
-#ifndef PICOPROBE_H_
-#define PICOPROBE_H_
+#ifndef BOARD_QTPY_H_
+#define BOARD_QTPY_H_
 
-#include "FreeRTOS.h"
-#include "task.h"
+#define PROBE_IO_RAW
+#define PROBE_CDC_UART
 
+// PIO config
+#define PROBE_SM 0
+#define PROBE_PIN_OFFSET 4
+#define PROBE_PIN_SWCLK (PROBE_PIN_OFFSET + 2) // 6
+#define PROBE_PIN_SWDIO (PROBE_PIN_OFFSET + 4) // 4
+// Target reset config
 #if false
-#define picoprobe_info(format,args...) \
-do { \
-	vTaskSuspendAll(); \
-	printf(format, ## args); \
-	xTaskResumeAll(); \
-} while (0)
-#else
-#define picoprobe_info(format,...) ((void)0)
+#define PROBE_PIN_RESET 1
 #endif
 
+// UART config
+#define PICOPROBE_UART_TX 4  // Silkscreened "TX"
+#define PICOPROBE_UART_RX 5  // Silkscreened "RX"
+#define PICOPROBE_UART_INTERFACE uart1
+#define PICOPROBE_UART_BAUDRATE 115200
 
-#if false
-#define picoprobe_debug(format,args...) \
-do { \
-	vTaskSuspendAll(); \
-	printf(format, ## args); \
-	xTaskResumeAll(); \
-} while (0)
-#else
-#define picoprobe_debug(format,...) ((void)0)
-#endif
+#define PICOPROBE_USB_CONNECTED_LED 25
 
-#if false
-#define picoprobe_dump(format,args...)\
-do { \
-	vTaskSuspendAll(); \
-	printf(format, ## args); \
-	xTaskResumeAll(); \
-} while (0)
-#else
-#define picoprobe_dump(format,...) ((void)0)
-#endif
-
-// TODO tie this up with PICO_BOARD defines in the main SDK
-
-#ifndef DEBUGPROBE 
-#include "board_qtpy_config.h"
-#else
-#include "board_debugprobe_config.h"
-#endif
-//#include "board_example_config.h"
-
-
-#define PROTO_DAP_V1 1
-#define PROTO_DAP_V2 2
-
-// Interface config
-#ifndef PICOPROBE_DEBUG_PROTOCOL
-#define PICOPROBE_DEBUG_PROTOCOL PROTO_DAP_V2
-#endif
+#define PROBE_PRODUCT_STRING "Picoprobe QtPy RP2040 (CMSIS-DAP)"
 
 #endif
