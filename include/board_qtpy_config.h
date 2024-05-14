@@ -31,22 +31,31 @@
 
 // PIO config
 #define PROBE_SM 0
-#define PROBE_PIN_OFFSET 4
-#define PROBE_PIN_SWCLK (PROBE_PIN_OFFSET + 2) // 6
-#define PROBE_PIN_SWDIO (PROBE_PIN_OFFSET + 4) // 4
+
+// Pin SWDIO 24 == "SDA"
+// Pin SWCLK 25 == "SCL"
+#define PROBE_PIN_OFFSET 24
+#define PROBE_PIN_SWCLK (PROBE_PIN_OFFSET + 1) // 25
+#define PROBE_PIN_SWDIO (PROBE_PIN_OFFSET + 0) // 24
+
+// SWCLK = 6 is the "SCK" pin
+// SWDIO = 4 is the "MISO" pin
+// #define PROBE_PIN_OFFSET 4
+// #define PROBE_PIN_SWCLK (PROBE_PIN_OFFSET + 2) // 6
+// #define PROBE_PIN_SWDIO (PROBE_PIN_OFFSET + 4) // 4
 // Target reset config
 #if false
 #define PROBE_PIN_RESET 1
 #endif
 
 // UART config
-#define PICOPROBE_UART_TX 4  // Silkscreened "TX"
-#define PICOPROBE_UART_RX 5  // Silkscreened "RX"
-#define PICOPROBE_UART_INTERFACE uart1
-#define PICOPROBE_UART_BAUDRATE 115200
+#define PROBE_UART_TX 20  // Silkscreened "TX"
+#define PROBE_UART_RX 5   // Silkscreened "RX"
+#define PROBE_UART_INTERFACE uart1
+#define PROBE_UART_BAUDRATE 115200
 
-#define PICOPROBE_USB_CONNECTED_LED 25
+//#define PICOPROBE_USB_CONNECTED_LED 25
 
-#define PROBE_PRODUCT_STRING "Picoprobe QtPy RP2040 (CMSIS-DAP)"
+#define PROBE_PRODUCT_STRING "Picoprobe QtPy2040 (CMSIS-DAP)"
 
 #endif
